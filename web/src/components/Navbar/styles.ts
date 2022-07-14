@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
+  max-width: 1120px;
   width: 100%;
-  padding: 32px 160px;
+  margin: 32px auto;
   background-color: var(--background);
 
   display: flex;
@@ -12,7 +13,7 @@ export const Container = styled.header`
 
 export const NavbarContent = styled.div`
   display: flex;
-  align-items: centers;
+  align-items: center;
 `;
 
 export const CoffeeLocation = styled.div`
