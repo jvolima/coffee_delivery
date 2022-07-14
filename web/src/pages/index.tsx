@@ -8,18 +8,25 @@ import {
   Benefits, 
   BenefitText, 
   Container, 
+  Products, 
+  SectionTitle, 
   SubTitle, 
   Texts, 
   Title
 } from "./styles/home";
 import homeImage from "../../public/images/homeImage.svg";
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
+import { ProductCard } from "../components/ProductCard";
 
 const items = [
   {
     id: '123',
     name: 'Expresso Tradicional',
     price: 9.90,
+    description: 'O tradicional café feito com água quente e grãos moídos',
+    categories: [
+      'tradicional'
+    ],
     image_url: '',
     quantity: 1
   }
@@ -69,6 +76,23 @@ export default function Home() {
           </Texts>
           <Image src={homeImage} alt="Coffee image"/>
         </AboutContainer>
+
+        <Products>
+          <SectionTitle>Nossos cafés</SectionTitle>
+          {
+            items.map(item => (
+              <ProductCard
+                key={item.id}
+                id={item.id}
+                name={item.name} 
+                description={item.description}
+                image_url={item.image_url}
+                price={item.price}
+                categories={item.categories}
+              />
+            ))
+          }
+        </Products>
       </Container>
     </>
   )

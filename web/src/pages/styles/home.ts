@@ -67,3 +67,17 @@ export const BenefitText = styled.span`
   font-size: 1rem;
   color: var(--text);
 `;
+
+export const Products = styled.div`
+  margin: 100px 0;
+`;
+
+export const SectionTitle = styled.h1`
+  margin-top: 32px;
+  margin-bottom: 14px;
+
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--subtitle);
+`;
