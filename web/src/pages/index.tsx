@@ -17,6 +17,7 @@ import {
 import homeImage from "../../public/images/homeImage.svg";
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import { ProductCard } from "../components/ProductCard";
+import { useCart } from "../hooks/cart";
 
 const items = [
   {
@@ -33,12 +34,14 @@ const items = [
 ]
 
 export default function Home() {
+  const { itemsInCart } = useCart();
+
   return (
     <>
       <Head>
         <title>Coffee Delivery</title>
       </Head>
-      <Navbar cartItems={items} />
+      <Navbar cartItems={itemsInCart} />
       <Container>
         <AboutContainer>
           <Texts>
