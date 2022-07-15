@@ -133,4 +133,10 @@ export const Cart = styled.button`
   border-radius: 6px;
   border: 0;
   background-color: var(--purple-dark);
+
+  transition: background-color 0.2s;
+
+  :hover {
+    background-color: var(--purple);
+  }
 `;
