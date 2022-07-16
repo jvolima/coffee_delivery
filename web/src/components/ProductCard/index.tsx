@@ -28,19 +28,33 @@ interface ProductCardProps {
   categories: string[];
   image_url: string;
   handleAddToCart: (id: string) => void;
+  handleAddQuantity: (id: string) => void;
+  handleRemoveQuantity: (id: string) => void;
 }
 
-export function ProductCard({ id, name, description, price, categories, image_url, handleAddToCart }: ProductCardProps) {
+export function ProductCard({ 
+  id, 
+  name, 
+  description, 
+  price, 
+  categories, 
+  image_url, 
+  handleAddToCart, 
+  handleAddQuantity,
+  handleRemoveQuantity 
+}: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
 
   function handleRemoveProduct() {
     if(quantity > 1) {
       setQuantity(oldState => oldState - 1);
+      handleRemoveQuantity(id);
     }
   }
 
   function handleAddProduct() {
     setQuantity(oldState => oldState + 1);
+    handleAddQuantity(id);
   }
 
   return (

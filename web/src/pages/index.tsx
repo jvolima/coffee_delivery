@@ -64,6 +64,22 @@ export default function Home() {
     addItemToCart(itemFormatted);
   }
 
+  function handleAddQuantity(id: string) {
+    const item = items.find(item => item.id === id) as Item;
+    item.quantity += 1;
+
+    const newArray = items.filter(item => item.id !== id);
+    setItems([...newArray, item]);
+  }
+
+  function handleRemoveQuantity(id: string) {
+    const item = items.find(item => item.id === id) as Item;
+    item.quantity -= 1;
+
+    const newArray = items.filter(item => item.id !== id);
+    setItems([...newArray, item]);
+  }
+
   return (
     <>
       <Head>
@@ -121,6 +137,8 @@ export default function Home() {
                 price={item.price}
                 categories={item.categories}
                 handleAddToCart={() => handleAddToCart(item.id)}
+                handleAddQuantity={() => handleAddQuantity(item.id)}
+                handleRemoveQuantity={() => handleRemoveQuantity(item.id)}
               />
             ))
           }
