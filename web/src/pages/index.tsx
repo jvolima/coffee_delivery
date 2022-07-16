@@ -18,23 +18,57 @@ import homeImage from "../../public/images/homeImage.svg";
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import { ProductCard } from "../components/ProductCard";
 import { useCart } from "../hooks/cart";
+import { useEffect, useState } from "react";
+
+interface Item {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  categories: string[];
+  image_url: string;
+  quantity: number;
+}
 
 const items = [
-  {
-    id: '123',
-    name: 'Expresso Tradicional',
-    price: 9.90,
-    description: 'O tradicional café feito com água quente e grãos moídos',
-    categories: [
-      'tradicional'
-    ],
-    image_url: '',
-    quantity: 1
-  }
+  
 ]
 
 export default function Home() {
-  const { itemsInCart } = useCart();
+  const [items, setItems] = useState<Item[]>([]);
+
+  useEffect(() => {
+    setItems([
+      {
+        id: '123',
+        name: 'Expresso Tradicional',
+        price: 9.90,
+        description: 'O tradicional café feito com água quente e grãos moídos',
+        categories: [
+          'tradicional'
+        ],
+        image_url: '',
+        quantity: 1
+      }
+    ])
+  }, []);
+
+  const { itemsInCart, addItemToCart } = useCart();
+
+  function handleAddToCart(id: string) {
+    const item = items.find(item => item.id) as Item;
+    const itemFormatted = {
+      id,
+      name: item.name,
+      price: item.price,
+      image_url: item.image_url,
+      quantity: item.quantity
+    };
+
+    addItemToCart(itemFormatted);
+  }
+
+  console.log(itemsInCart)
 
   return (
     <>
@@ -92,6 +126,7 @@ export default function Home() {
                 image_url={item.image_url}
                 price={item.price}
                 categories={item.categories}
+                handleAddToCart={() => handleAddToCart(item.id)}
               />
             ))
           }

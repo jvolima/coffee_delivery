@@ -22,8 +22,17 @@ const CartContext = createContext<CartContextData>({} as CartContextData);
 function CartProvider({ children }: CartProviderProps) {
   const [itemsInCart, setItemsInCart] = useState<Item[]>([]);
 
-  function addItemToCart(item: Item) {
-    setItemsInCart(oldState => [...oldState, item]);
+  function addItemToCart(newItem: Item) {
+    const itemAlreadyInCart = itemsInCart.find(item => item.id === newItem.id);
+    console.log(itemAlreadyInCart)
+
+    if(itemAlreadyInCart) {
+      const newCart = itemsInCart.filter(item => item.id !== newItem.id);
+      setItemsInCart([...newCart, newItem]);
+      return;
+    }
+
+    setItemsInCart(oldState => [...oldState, newItem]);
   }
 
   return (

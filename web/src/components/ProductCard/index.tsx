@@ -27,9 +27,10 @@ interface ProductCardProps {
   price: number;
   categories: string[];
   image_url: string;
+  handleAddToCart: (id: string) => void;
 }
 
-export function ProductCard({ id, name, description, price, categories, image_url }: ProductCardProps) {
+export function ProductCard({ id, name, description, price, categories, image_url, handleAddToCart }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
 
   function handleRemoveProduct() {
@@ -79,7 +80,7 @@ export function ProductCard({ id, name, description, price, categories, image_ur
               <Plus size={14} weight="bold" color="#8047F8" />
             </AddButton>
           </QuantityContainer>
-          <Cart>
+          <Cart onClick={() => handleAddToCart(id)}>
             <ShoppingCart size={22} weight="fill" color="#F3F2F2" />
           </Cart>
         </CartAndQuantity>
