@@ -9,6 +9,7 @@ import {
   BenefitText, 
   Container, 
   Products, 
+  ProductsList, 
   SectionTitle, 
   SubTitle, 
   Texts, 
@@ -45,7 +46,7 @@ export default function Home() {
         ],
         image_url: '',
         quantity: 1
-      },
+      }
     ]);
   }, []);
 
@@ -126,22 +127,24 @@ export default function Home() {
 
         <Products>
           <SectionTitle>Nossos cafés</SectionTitle>
-          {
-            items.map(item => (
-              <ProductCard
-                key={item.id}
-                id={item.id}
-                name={item.name} 
-                description={item.description}
-                image_url={item.image_url}
-                price={item.price}
-                categories={item.categories}
-                handleAddToCart={() => handleAddToCart(item.id)}
-                handleAddQuantity={() => handleAddQuantity(item.id)}
-                handleRemoveQuantity={() => handleRemoveQuantity(item.id)}
-              />
-            ))
-          }
+          <ProductsList>
+            {
+              items.map(item => (
+                <ProductCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.name} 
+                  description={item.description}
+                  image_url={item.image_url}
+                  price={item.price}
+                  categories={item.categories}
+                  handleAddToCart={() => handleAddToCart(item.id)}
+                  handleAddQuantity={() => handleAddQuantity(item.id)}
+                  handleRemoveQuantity={() => handleRemoveQuantity(item.id)}
+                />
+              ))
+            }
+          </ProductsList>
         </Products>
       </Container>
     </>

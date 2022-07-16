@@ -74,10 +74,16 @@ export const Products = styled.div`
 
 export const SectionTitle = styled.h1`
   margin-top: 32px;
-  margin-bottom: 14px;
 
   font-family: 'Baloo 2', sans-serif;
   font-size: 2rem;
   font-weight: 800;
   color: var(--subtitle);
+`;
+
+export const ProductsList = styled.div`
+  margin-top: 54px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(256px, 256px));
+  gap: 2.5rem 2rem;
 `;

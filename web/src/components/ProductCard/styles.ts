@@ -6,7 +6,6 @@ export const Container = styled.div`
   background-color: var(--card);
   border-radius: 6px 36px;
 
-  margin-top: 40px;
   display: flex;
   align-items: center;
   flex-direction: column;
