@@ -30,10 +30,6 @@ interface Item {
   quantity: number;
 }
 
-const items = [
-  
-]
-
 export default function Home() {
   const [items, setItems] = useState<Item[]>([]);
 
@@ -49,14 +45,14 @@ export default function Home() {
         ],
         image_url: '',
         quantity: 1
-      }
-    ])
+      },
+    ]);
   }, []);
 
   const { itemsInCart, addItemToCart } = useCart();
 
   function handleAddToCart(id: string) {
-    const item = items.find(item => item.id) as Item;
+    const item = items.find(item => item.id === id) as Item;
     const itemFormatted = {
       id,
       name: item.name,
@@ -67,8 +63,6 @@ export default function Home() {
 
     addItemToCart(itemFormatted);
   }
-
-  console.log(itemsInCart)
 
   return (
     <>

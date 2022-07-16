@@ -23,8 +23,8 @@ function CartProvider({ children }: CartProviderProps) {
   const [itemsInCart, setItemsInCart] = useState<Item[]>([]);
 
   function addItemToCart(newItem: Item) {
+    console.log(newItem)
     const itemAlreadyInCart = itemsInCart.find(item => item.id === newItem.id);
-    console.log(itemAlreadyInCart)
 
     if(itemAlreadyInCart) {
       const newCart = itemsInCart.filter(item => item.id !== newItem.id);
