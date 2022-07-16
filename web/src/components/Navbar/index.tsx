@@ -5,10 +5,12 @@ import {
   CoffeeLocationText,
   Container, 
   ItemsInCart, 
+  LogoButton, 
   NavbarContent 
 } from "./styles";
 import logo from "../../../public/images/logo.svg";
 import { ShoppingCart, MapPin } from "phosphor-react";
+import { useRouter } from "next/router";
 
 interface Item {
   id: string;
@@ -23,16 +25,28 @@ interface NavbarProps {
 }
 
 export function Navbar({ cartItems }: NavbarProps) {
+  const router = useRouter();
+
+  function handleGoToCheckout() {
+    router.push('/checkout');
+  }
+
+  function handleBackToHome() {
+    router.push('/');
+  }
+
   return (
     <Container>
-      <Image src={logo} alt="Logo" />
+      <LogoButton onClick={handleBackToHome}>
+        <Image src={logo} alt="Logo" />
+      </LogoButton>
       <NavbarContent>
         <CoffeeLocation>
           <MapPin size={22} weight='fill' color='#8047FB' />
           <CoffeeLocationText>Goioerê, PR</CoffeeLocationText>
         </CoffeeLocation>
 
-        <CartButton>
+        <CartButton onClick={handleGoToCheckout}>
           { cartItems.length > 0 && <ItemsInCart>{cartItems.length}</ItemsInCart> }
           <ShoppingCart size={22} weight='fill' color='#C47F17' />
         </CartButton>

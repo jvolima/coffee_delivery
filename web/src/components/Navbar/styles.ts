@@ -11,6 +11,11 @@ export const Container = styled.header`
   align-items: center;
 `;
 
+export const LogoButton = styled.button`
+  border: 0;
+  background: transparent;
+`;
+
 export const NavbarContent = styled.div`
   display: flex;
   align-items: center;

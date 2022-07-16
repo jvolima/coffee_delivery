@@ -83,7 +83,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Coffee Delivery</title>
+        <title>Início | Coffee Delivery</title>
       </Head>
       <Navbar cartItems={itemsInCart} />
       <Container>
