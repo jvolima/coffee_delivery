@@ -100,3 +100,119 @@ export const ItemsInfos = styled.div`
   border-radius: 6px 44px;
   width: 100%;
 `;
+
+export const Items = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ItemContainer = styled.div`
+`;
+
+export const ItemContent = styled.div`
+  padding: 8px 4px;
+  display: flex;
+  align-items: center;
+`;
+
+export const ItemDetailsAndActions = styled.div`
+  width: 100%;
+`;
+
+export const ItemTitleAndPrice = styled.div`
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ItemTitle = styled.span`
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  color: var(--subtitle);
+`;
+
+export const ItemPrice = styled.span`
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+`;
+
+export const Functionalities = styled.div`
+  margin-top: 8px;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+`;
+
+export const QuantityContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 32px;
+  padding: 0px 9px;
+  gap: 8px;
+  border-radius: 6px;
+  background-color: var(--button);
+  margin-right: 8px;
+`;
+
+export const DecreaseButton = styled.button`
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Quantity = styled.span`
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--title);
+`;
+
+export const AddButton = styled.button`
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const RemoveButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 0px 8px;
+  height: 32px;
+  border: 0;
+  border-radius: 6px;
+  background-color: var(--button);
+
+  transition: background-color 0.2s;
+
+  :hover {
+    background-color: var(--hover);
+  }
+`;
+
+export const RemoveTitle = styled.span`
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.75rem;
+  color: var(--text);
+  text-transform: uppercase;
+
+  display: block;
+  margin-left: 4px;
+`;
+
+export const SeparateLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: var(--button);
+  margin: 24px 0;
+`;

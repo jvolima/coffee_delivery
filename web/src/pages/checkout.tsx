@@ -1,7 +1,7 @@
 import Head from "next/head";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CurrencyDollar, MapPinLine } from "phosphor-react";
+import { CurrencyDollar, MapPinLine, Minus, Plus, Trash } from "phosphor-react";
 import { Input } from "../components/Form/Input";
 import { Navbar } from "../components/Navbar";
 import { useCart } from "../hooks/cart";
@@ -19,7 +19,22 @@ import {
   ItemsSelected,
   ItemsSelectedTitle,
   PaymentInfos,
-  PaymentMethods
+  PaymentMethods,
+  ItemContainer,
+  Items,
+  ItemContent,
+  SeparateLine,
+  ItemTitleAndPrice,
+  ItemTitle,
+  ItemPrice,
+  Functionalities,
+  RemoveButton,
+  RemoveTitle,
+  ItemDetailsAndActions,
+  QuantityContainer,
+  DecreaseButton,
+  Quantity,
+  AddButton
 } from "./styles/checkout";
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
 import { PaymentMethod } from "../components/PaymentMethod";
@@ -48,7 +63,7 @@ const checkoutInfosFormSchema = yup.object().shape({
 export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState<'credit-card' | 'debit-card' | 'cash' | null>(null);
 
-  const { itemsInCart } = useCart();
+  const { itemsInCart, removeItem } = useCart();
 
   const { register, handleSubmit, formState } = useForm<CheckoutInfosFormData>({
     resolver: yupResolver(checkoutInfosFormSchema)
@@ -60,6 +75,18 @@ export default function Checkout() {
 
   function handleSelectPaymentMethod(method: 'credit-card' | 'debit-card' | 'cash') {
     setPaymentMethod(method);
+  }
+
+  function handleAddProduct(id: string) {
+    
+  }
+
+  function handleDecreaseProduct(id: string) {
+
+  }
+
+  function handleRemoveProduct(id: string) {
+    removeItem(id);
   }
 
   return (
@@ -157,7 +184,39 @@ export default function Checkout() {
         <ItemsSelected>
           <ItemsSelectedTitle>Cafés selecionados</ItemsSelectedTitle>
           <ItemsInfos>
-            
+            <Items>
+              {
+                itemsInCart.map(item => (
+                  <ItemContainer key={item.id}>
+                    <ItemContent>
+                      <img src={item.image_url} width={64} height={64} alt="Item image" />
+                      <ItemDetailsAndActions>
+                        <ItemTitleAndPrice>
+                          <ItemTitle>{item.name}</ItemTitle>
+                          <ItemPrice>R$ {item.price.toFixed(2)}</ItemPrice>
+                        </ItemTitleAndPrice>
+                        <Functionalities>
+                          <QuantityContainer>
+                            <DecreaseButton onClick={() => handleDecreaseProduct(item.id)}>
+                              <Minus size={14} weight="bold" color="#8047F8" />
+                            </DecreaseButton>
+                            <Quantity>{item.quantity}</Quantity>
+                            <AddButton onClick={() => handleAddProduct(item.id)}>
+                              <Plus size={14} weight="bold" color="#8047F8" />
+                            </AddButton>
+                          </QuantityContainer>
+                          <RemoveButton onClick={() => handleRemoveProduct(item.id)}>
+                            <Trash size={16} color="#8047F8" />
+                            <RemoveTitle>remover</RemoveTitle>
+                          </RemoveButton>
+                        </Functionalities>
+                      </ItemDetailsAndActions>
+                    </ItemContent>
+                    <SeparateLine />
+                  </ItemContainer>
+                ))
+              }
+            </Items>
           </ItemsInfos>
         </ItemsSelected>
       </Container>

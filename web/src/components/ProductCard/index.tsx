@@ -60,8 +60,8 @@ export function ProductCard({
   return (
     <Container>
       <ContainerImage>
-        <Image 
-          src={coffeeImage} 
+        <img 
+          src={image_url} 
           width={120} 
           height={120} 
           alt="Product image" 

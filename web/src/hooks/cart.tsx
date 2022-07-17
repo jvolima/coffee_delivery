@@ -11,6 +11,7 @@ interface Item {
 interface CartContextData {
   itemsInCart: Item[];
   addItemToCart: (item: Item) => void;
+  removeItem: (id: string) => void;
 }
 
 interface CartProviderProps {
@@ -34,8 +35,13 @@ function CartProvider({ children }: CartProviderProps) {
     setItemsInCart(oldState => [...oldState, newItem]);
   }
 
+  function removeItem(id: string) {
+    const newCart = itemsInCart.filter(item => item.id !== id);
+    setItemsInCart([...newCart]);
+  }
+
   return (
-    <CartContext.Provider value={{itemsInCart, addItemToCart}}>
+    <CartContext.Provider value={{itemsInCart, addItemToCart, removeItem}}>
       {children}
     </CartContext.Provider>
   )
