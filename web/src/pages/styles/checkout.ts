@@ -76,8 +76,8 @@ export const PaymentInfos = styled.div`
 
 export const PaymentMethods = styled.div`
   margin-top: 32px;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0 12px;
 `;
 
