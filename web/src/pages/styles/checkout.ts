@@ -29,12 +29,12 @@ export const DeliveryInfos = styled.div`
   width: 100%;
 `;
 
-export const DeliveryTitleContainer = styled.div`
+export const SectionTitleContainer = styled.div`
   display: flex;
   align-items: center;
 `;
 
-export const DeliveryTitle = styled.h2`
+export const SectionTitle = styled.h2`
   margin-left: 8px;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
@@ -42,7 +42,7 @@ export const DeliveryTitle = styled.h2`
   color: var(--subtitle);
 `;
 
-export const AddressHelp = styled.h3`
+export const SectionSubtitle = styled.h3`
   margin-top: 2px;
   margin-left: 30px;
   font-family: 'Roboto', sans-serif;
@@ -72,6 +72,13 @@ export const PaymentInfos = styled.div`
   background-color: var(--card);
   border-radius: 6px;
   width: 100%;
+`;
+
+export const PaymentMethods = styled.div`
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 0 12px;
 `;
 
 export const ItemsSelected = styled.div`

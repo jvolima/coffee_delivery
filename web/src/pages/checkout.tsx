@@ -1,26 +1,29 @@
 import Head from "next/head";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { MapPinLine } from "phosphor-react";
+import { CurrencyDollar, MapPinLine } from "phosphor-react";
 import { Input } from "../components/Form/Input";
 import { Navbar } from "../components/Navbar";
 import { useCart } from "../hooks/cart";
 import { 
-  AddressHelp,
+  SectionSubtitle,
   CheckoutInfos, 
   CheckoutTitle, 
   Container, 
   ContainerMoreThanOneInputs, 
   DeliveryInfos, 
-  DeliveryTitle, 
-  DeliveryTitleContainer, 
+  SectionTitle, 
+  SectionTitleContainer, 
   Form, 
   ItemsInfos, 
   ItemsSelected,
   ItemsSelectedTitle,
-  PaymentInfos
+  PaymentInfos,
+  PaymentMethods
 } from "./styles/checkout";
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
+import { PaymentMethod } from "../components/PaymentMethod";
+import { useState } from "react";
 
 type CheckoutInfosFormData = {
   cep: string;
@@ -43,6 +46,8 @@ const checkoutInfosFormSchema = yup.object().shape({
 });
 
 export default function Checkout() {
+  const [paymentMethod, setPaymentMethod] = useState<'credit-card' | 'debit-card' | 'cash' | null>(null);
+
   const { itemsInCart } = useCart();
 
   const { register, handleSubmit, formState } = useForm<CheckoutInfosFormData>({
@@ -51,6 +56,10 @@ export default function Checkout() {
 
   const handleConfirmCheckout: SubmitHandler<CheckoutInfosFormData> = async (values) => {
     console.log(values);
+  }
+
+  function handleSelectPaymentMethod(method: 'credit-card' | 'debit-card' | 'cash') {
+    setPaymentMethod(method);
   }
 
   return (
@@ -63,11 +72,11 @@ export default function Checkout() {
         <CheckoutInfos>
           <CheckoutTitle>Complete seu pedido</CheckoutTitle>
           <DeliveryInfos>
-            <DeliveryTitleContainer>
+            <SectionTitleContainer>
               <MapPinLine size={22} color="#C47F17" />
-              <DeliveryTitle>Endereço de Entrega</DeliveryTitle>
-            </DeliveryTitleContainer>
-            <AddressHelp>Informe o endereço onde deseja receber seu pedido</AddressHelp>
+              <SectionTitle>Endereço de Entrega</SectionTitle>
+            </SectionTitleContainer>
+            <SectionSubtitle>Informe o endereço onde deseja receber seu pedido</SectionSubtitle>
             <Form onSubmit={handleSubmit(handleConfirmCheckout)}>
               <Input 
                 placeholder="CEP"
@@ -120,6 +129,28 @@ export default function Checkout() {
           </DeliveryInfos>
 
           <PaymentInfos>
+            <SectionTitleContainer>
+              <CurrencyDollar size={22} color="#8047F8" />
+              <SectionTitle>Pagamento</SectionTitle>
+            </SectionTitleContainer>
+            <SectionSubtitle>O pagamento é feito na entrega. Escolha a forma que deseja pagar</SectionSubtitle>
+            <PaymentMethods>
+              <PaymentMethod 
+                handleSelectPaymentMethod={handleSelectPaymentMethod} 
+                method="credit-card" 
+                isSelected={paymentMethod === "credit-card"} 
+              />
+              <PaymentMethod 
+                handleSelectPaymentMethod={handleSelectPaymentMethod}
+                method="debit-card" 
+                isSelected={paymentMethod === "debit-card"} 
+              />
+              <PaymentMethod 
+                handleSelectPaymentMethod={handleSelectPaymentMethod}
+                method="cash" 
+                isSelected={paymentMethod === "cash"} 
+              />
+            </PaymentMethods>
           </PaymentInfos>
         </CheckoutInfos>
 
