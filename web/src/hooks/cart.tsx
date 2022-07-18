@@ -27,8 +27,11 @@ function CartProvider({ children }: CartProviderProps) {
     const itemAlreadyInCart = itemsInCart.find(item => item.id === newItem.id);
 
     if(itemAlreadyInCart) {
-      const newCart = itemsInCart.filter(item => item.id !== newItem.id);
-      setItemsInCart([...newCart, newItem]);
+      const itemIndex = itemsInCart.indexOf(itemAlreadyInCart);
+      const newCart = [...itemsInCart];
+      newCart[itemIndex].quantity = newItem.quantity;
+      
+      setItemsInCart([...newCart]);
       return;
     }
 

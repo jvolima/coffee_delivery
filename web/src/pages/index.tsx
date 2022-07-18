@@ -34,6 +34,43 @@ interface Item {
 export default function Home() {
   const [items, setItems] = useState<Item[]>([]);
 
+  function updateQuantities() {
+    const itemsList = [
+      {
+        id: '123',
+        name: 'Expresso Tradicional',
+        price: 9.90,
+        description: 'O tradicional café feito com água quente e grãos moídos',
+        categories: [
+          'tradicional'
+        ],
+        image_url: 'https://static.wixstatic.com/media/13a672_3e7ab53c2de84368b95205ff4d36f273~mv2.png/v1/fill/w_196,h_194,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/caf%C3%A9.png',
+        quantity: 1
+      },
+      {
+        id: '321',
+        name: 'Expresso Tradicional 2',
+        price: 9.90,
+        description: 'O tradicional café feito com água quente e grãos moídos',
+        categories: [
+          'tradicional'
+        ],
+        image_url: 'https://static.wixstatic.com/media/13a672_3e7ab53c2de84368b95205ff4d36f273~mv2.png/v1/fill/w_196,h_194,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/caf%C3%A9.png',
+        quantity: 1
+      }
+    ];
+
+    const itemsFormatted = itemsList.map(item => {
+      const itemIsInCart = itemsInCart.find(cartItem => cartItem.id === item.id);
+      if(itemIsInCart) {
+        item.quantity = itemIsInCart.quantity;
+      }
+      return item;
+    });
+
+    setItems(itemsFormatted);
+  }
+
   useEffect(() => {
     setItems([
       {
@@ -46,8 +83,21 @@ export default function Home() {
         ],
         image_url: 'https://static.wixstatic.com/media/13a672_3e7ab53c2de84368b95205ff4d36f273~mv2.png/v1/fill/w_196,h_194,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/caf%C3%A9.png',
         quantity: 1
+      },
+      {
+        id: '321',
+        name: 'Expresso Tradicional 2',
+        price: 9.90,
+        description: 'O tradicional café feito com água quente e grãos moídos',
+        categories: [
+          'tradicional'
+        ],
+        image_url: 'https://static.wixstatic.com/media/13a672_3e7ab53c2de84368b95205ff4d36f273~mv2.png/v1/fill/w_196,h_194,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/caf%C3%A9.png',
+        quantity: 1
       }
     ]);
+
+    updateQuantities()
   }, []);
 
   const { itemsInCart, addItemToCart } = useCart();
@@ -67,18 +117,22 @@ export default function Home() {
 
   function handleAddQuantity(id: string) {
     const item = items.find(item => item.id === id) as Item;
-    item.quantity += 1;
+    const itemIndex = items.indexOf(item);
 
-    const newArray = items.filter(item => item.id !== id);
-    setItems([...newArray, item]);
+    const newArray = [...items];
+    newArray[itemIndex].quantity += 1;
+    setItems([...newArray]);
   }
 
   function handleRemoveQuantity(id: string) {
     const item = items.find(item => item.id === id) as Item;
-    item.quantity -= 1;
 
-    const newArray = items.filter(item => item.id !== id);
-    setItems([...newArray, item]);
+    if(item.quantity > 1) {
+      const itemIndex = items.indexOf(item);
+      const newArray = [...items];
+      newArray[itemIndex].quantity -= 1;
+      setItems([...newArray]);
+    }
   }
 
   return (

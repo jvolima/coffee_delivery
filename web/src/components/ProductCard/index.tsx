@@ -19,6 +19,7 @@ import {
 import coffeeImage from "../../../public/images/coffeeImage.png"
 import { ShoppingCart, Minus, Plus } from "phosphor-react";
 import { useState } from "react";
+import { useCart } from "../../hooks/cart";
 
 interface ProductCardProps {
   id: string;
@@ -43,7 +44,10 @@ export function ProductCard({
   handleAddQuantity,
   handleRemoveQuantity 
 }: ProductCardProps) {
-  const [quantity, setQuantity] = useState(1);
+  const { itemsInCart } = useCart();
+  const itemIsInCart = itemsInCart.find(item => item.id === id); 
+
+  const [quantity, setQuantity] = useState(itemIsInCart?.quantity !== undefined ? itemIsInCart.quantity : 1);
 
   function handleRemoveProduct() {
     if(quantity > 1) {

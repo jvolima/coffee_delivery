@@ -40,6 +40,14 @@ import { FieldError, SubmitHandler, useForm } from "react-hook-form";
 import { PaymentMethod } from "../components/PaymentMethod";
 import { useState } from "react";
 
+interface Item {
+  id: string;
+  name: string;
+  price: number;
+  image_url: string;
+  quantity: number;
+}
+
 type CheckoutInfosFormData = {
   cep: string;
   address: string;
@@ -63,7 +71,7 @@ const checkoutInfosFormSchema = yup.object().shape({
 export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState<'credit-card' | 'debit-card' | 'cash' | null>(null);
 
-  const { itemsInCart, removeItem } = useCart();
+  const { itemsInCart, removeItem, addItemToCart } = useCart();
 
   const { register, handleSubmit, formState } = useForm<CheckoutInfosFormData>({
     resolver: yupResolver(checkoutInfosFormSchema)
@@ -78,11 +86,20 @@ export default function Checkout() {
   }
 
   function handleAddProduct(id: string) {
-    
+    const item = itemsInCart.find(item => item.id === id) as Item;
+    item.quantity += 1;
+
+    addItemToCart(item);
   }
 
   function handleDecreaseProduct(id: string) {
+    const item = itemsInCart.find(item => item.id === id) as Item;
 
+    if(item.quantity > 1) {
+      item.quantity -= 1;
+
+      addItemToCart(item);
+    }
   }
 
   function handleRemoveProduct(id: string) {
