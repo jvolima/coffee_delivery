@@ -14,6 +14,12 @@ export const Container = styled.div<ContainerProps>`
   align-items: center;
   cursor: pointer;
 
+  transition: background-color 0.2s;
+
+  :hover {
+    background-color: var(--hover);
+  }
+
   ${({ isSelected }) => isSelected && css`
     border: 1px solid var(--purple);
   `}

@@ -34,7 +34,15 @@ import {
   QuantityContainer,
   DecreaseButton,
   Quantity,
-  AddButton
+  AddButton,
+  PriceSection,
+  ConfirmButton,
+  TotalContainer,
+  TotalPrice,
+  TotalTitle,
+  ExpenseContainer,
+  ExpenseTitle,
+  ExpensePrice
 } from "./styles/checkout";
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
 import { PaymentMethod } from "../components/PaymentMethod";
@@ -79,6 +87,7 @@ export default function Checkout() {
 
   const handleConfirmCheckout: SubmitHandler<CheckoutInfosFormData> = async (values) => {
     console.log(values);
+    console.log(paymentMethod);
   }
 
   function handleSelectPaymentMethod(method: 'credit-card' | 'debit-card' | 'cash') {
@@ -121,7 +130,7 @@ export default function Checkout() {
               <SectionTitle>Endereço de Entrega</SectionTitle>
             </SectionTitleContainer>
             <SectionSubtitle>Informe o endereço onde deseja receber seu pedido</SectionSubtitle>
-            <Form onSubmit={handleSubmit(handleConfirmCheckout)}>
+            <Form>
               <Input 
                 placeholder="CEP"
                 width="200px" 
@@ -234,6 +243,25 @@ export default function Checkout() {
                 ))
               }
             </Items>
+
+            <PriceSection>
+              <ExpenseContainer>
+                <ExpenseTitle>Total de itens</ExpenseTitle>
+                <ExpensePrice>R$ 29.70</ExpensePrice>
+              </ExpenseContainer>
+
+              <ExpenseContainer>
+                <ExpenseTitle>Entrega</ExpenseTitle>
+                <ExpensePrice>R$ 3.50</ExpensePrice>
+              </ExpenseContainer>
+
+              <TotalContainer>
+                <TotalTitle>Total</TotalTitle>
+                <TotalPrice>R$ 33.20</TotalPrice>
+              </TotalContainer>
+              
+              <ConfirmButton onClick={handleSubmit(handleConfirmCheckout)}>Confirmar pedido</ConfirmButton>
+            </PriceSection>
           </ItemsInfos>
         </ItemsSelected>
       </Container>

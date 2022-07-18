@@ -216,3 +216,76 @@ export const SeparateLine = styled.div`
   background-color: var(--button);
   margin: 24px 0;
 `;
+
+export const PriceSection = styled.div`
+  width: 100%;
+`;
+
+export const ExpenseContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+`;
+
+export const ExpenseTitle = styled.h4`
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text);
+`;
+
+export const ExpensePrice = styled.span`
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text);
+`;
+
+export const TotalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const TotalTitle = styled.h4`
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--subtitle);
+`;
+
+export const TotalPrice = styled.span`
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--subtitle);
+`;
+
+export const ConfirmButton = styled.button`
+  margin-top: 24px;
+  
+  width: 100%;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  border: 0;
+  border-radius: 6px;
+  background-color: var(--yellow);
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--white);
+  font-stretch: 100;
+  text-transform: uppercase;
+
+  transition: background-color 0.2s;
+
+  :hover {
+    background-color: var(--yellow-dark);
+  }
+`;
