@@ -8,10 +8,24 @@ interface Item {
   quantity: number;
 }
 
+interface OrderInfos {
+  paymentMethod: 'credit-card' | 'debit-card' | 'cash';
+  address: string;
+  number: number;
+  district: string;
+  city: string;
+  uf: string;
+  total: number;
+  items: Item[];
+}
+
 interface CartContextData {
   itemsInCart: Item[];
+  order: OrderInfos;
   addItemToCart: (item: Item) => void;
   removeItem: (id: string) => void;
+  finishOrder: (order: OrderInfos) => void;
+  cleanCart: () => void;
 }
 
 interface CartProviderProps {
@@ -22,6 +36,7 @@ const CartContext = createContext<CartContextData>({} as CartContextData);
 
 function CartProvider({ children }: CartProviderProps) {
   const [itemsInCart, setItemsInCart] = useState<Item[]>([]);
+  const [order, setOrder] = useState<OrderInfos>({} as OrderInfos);
 
   function addItemToCart(newItem: Item) {
     const itemAlreadyInCart = itemsInCart.find(item => item.id === newItem.id);
@@ -43,8 +58,16 @@ function CartProvider({ children }: CartProviderProps) {
     setItemsInCart([...newCart]);
   }
 
+  function finishOrder(order: OrderInfos) {
+    setOrder(order);
+  }
+
+  function cleanCart() {
+    setItemsInCart([]);
+  }
+
   return (
-    <CartContext.Provider value={{itemsInCart, addItemToCart, removeItem}}>
+    <CartContext.Provider value={{itemsInCart, order, addItemToCart, removeItem, finishOrder, cleanCart}}>
       {children}
     </CartContext.Provider>
   )

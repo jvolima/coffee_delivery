@@ -47,6 +47,7 @@ import {
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
 import { PaymentMethod } from "../components/PaymentMethod";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 interface Item {
   id: string;
@@ -78,16 +79,42 @@ const checkoutInfosFormSchema = yup.object().shape({
 
 export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState<'credit-card' | 'debit-card' | 'cash' | null>(null);
+  const [deliveryTax, setDeliveryTax] = useState(3.50);
 
-  const { itemsInCart, removeItem, addItemToCart } = useCart();
+  const { itemsInCart, removeItem, addItemToCart, cleanCart, finishOrder } = useCart();
+
+  const router = useRouter();
 
   const { register, handleSubmit, formState } = useForm<CheckoutInfosFormData>({
     resolver: yupResolver(checkoutInfosFormSchema)
   });
 
   const handleConfirmCheckout: SubmitHandler<CheckoutInfosFormData> = async (values) => {
-    console.log(values);
-    console.log(paymentMethod);
+    if(paymentMethod !== null) {
+      //compra finalizada, mandar dados da compra para a API
+      finishOrder({
+        paymentMethod,
+        address: values.address,
+        number: values.number,
+        district: values.district,
+        city: values.city,
+        uf: values.uf,
+        total: calculateItemsTotal(),
+        items: itemsInCart
+      });
+
+      cleanCart();
+      router.push('/orderCompleted', {
+        query: {
+          paymentMethod,
+          address: values.address,
+          number: values.number,
+          district: values.district,
+          city: values.city,
+          uf: values.uf
+        }
+      })
+    }
   }
 
   function handleSelectPaymentMethod(method: 'credit-card' | 'debit-card' | 'cash') {
@@ -113,6 +140,20 @@ export default function Checkout() {
 
   function handleRemoveProduct(id: string) {
     removeItem(id);
+  }
+
+  function calculateItemsTotal() {
+    let total = 0;
+    itemsInCart.forEach((item) => {
+      total += item.price * item.quantity
+    });
+
+    return total;
+  }
+
+  function fixDecimal(total: number, delivery: number) {
+    const totalFixed = total + delivery;
+    return totalFixed.toFixed(2);
   }
 
   return (
@@ -247,17 +288,17 @@ export default function Checkout() {
             <PriceSection>
               <ExpenseContainer>
                 <ExpenseTitle>Total de itens</ExpenseTitle>
-                <ExpensePrice>R$ 29.70</ExpensePrice>
+                <ExpensePrice>R$ {calculateItemsTotal().toFixed(2)}</ExpensePrice>
               </ExpenseContainer>
 
               <ExpenseContainer>
                 <ExpenseTitle>Entrega</ExpenseTitle>
-                <ExpensePrice>R$ 3.50</ExpensePrice>
+                <ExpensePrice>R$ {deliveryTax.toFixed(2)}</ExpensePrice>
               </ExpenseContainer>
 
               <TotalContainer>
                 <TotalTitle>Total</TotalTitle>
-                <TotalPrice>R$ 33.20</TotalPrice>
+                <TotalPrice>R$ {fixDecimal(calculateItemsTotal(), deliveryTax)}</TotalPrice>
               </TotalContainer>
               
               <ConfirmButton onClick={handleSubmit(handleConfirmCheckout)}>Confirmar pedido</ConfirmButton>
