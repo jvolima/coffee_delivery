@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres
+    container_name: database_coffee
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=coffee
+      - POSTGRES_DB=coffee
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+    driver: local
