@@ -143,12 +143,11 @@ export default function Checkout() {
   }
 
   function calculateItemsTotal() {
-    let total = 0;
-    itemsInCart.forEach((item) => {
-      total += item.price * item.quantity
-    });
+    const total = itemsInCart.reduce((total, item) => {
+      return total + ( item.price * item.quantity)
+    }, 0)
 
-    return total;
+    return total
   }
 
   function fixDecimal(total: number, delivery: number) {
